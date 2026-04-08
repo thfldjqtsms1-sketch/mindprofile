@@ -1,33 +1,29 @@
 'use client';
 
 import Hero from '@/components/sections/Hero';
-import Problems from '@/components/sections/Problems';
-import Empathy from '@/components/sections/Empathy';
-import Solution from '@/components/sections/Solution';
-import Programs from '@/components/sections/Programs';
-import Achievements from '@/components/sections/Achievements';
-import Profile from '@/components/sections/Profile';
-import Book from '@/components/sections/Book';
-import Testimonials from '@/components/sections/Testimonials';
-import Enrollment from '@/components/sections/Enrollment';
-import FAQ from '@/components/sections/FAQ';
-import FinalCTA from '@/components/sections/FinalCTA';
+import ProblemSection from '@/components/sections/ProblemSection';
+import InsightSection from '@/components/sections/InsightSection';
+import FrameworkSection from '@/components/sections/FrameworkSection';
+import ProgramFlowSection from '@/components/sections/ProgramFlowSection';
+import ProofSection from '@/components/sections/ProofSection';
+import TestimonialSection from '@/components/sections/TestimonialSection';
+import AuthoritySection from '@/components/sections/AuthoritySection';
+import FAQSection from '@/components/sections/FAQSection';
+import FinalCTASection from '@/components/sections/FinalCTASection';
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <Problems />
-      <Empathy />
-      <Solution />
-      <Programs />
-      <Achievements />
-      <Profile />
-      <Book />
-      <Testimonials />
-      <Enrollment />
-      <FAQ />
-      <FinalCTA />
+      <ProblemSection />
+      <InsightSection />
+      <FrameworkSection />
+      <ProgramFlowSection />
+      <ProofSection />
+      <TestimonialSection />
+      <AuthoritySection />
+      <FAQSection />
+      <FinalCTASection />
     </>
   );
 }

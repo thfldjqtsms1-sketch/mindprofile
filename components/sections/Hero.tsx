@@ -1,130 +1,80 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import { siteConfig } from '@/lib/data';
-import { fadeInUp, blurIn, staggerContainer } from '@/lib/animations';
+import { ArrowRight, ChevronDown } from 'lucide-react';
+import { hero, siteConfig } from '@/lib/data';
+import { blurReveal, fadeUp, stagger } from '@/lib/animations';
 
 export default function Hero() {
-  const counterRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    const el = counterRef.current;
-    if (!el) return;
-    let start = 0;
-    const end = 500;
-    const duration = 2000;
-    const startTime = performance.now();
-
-    function animate(now: number) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      start = Math.floor(eased * end);
-      el!.textContent = `${start}+`;
-      if (progress < 1) requestAnimationFrame(animate);
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          requestAnimationFrame(animate);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.5 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center overflow-hidden"
       style={{ background: 'var(--gradient-hero)' }}
     >
-      {/* Subtle particle effect via CSS */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)',
-        backgroundSize: '40px 40px',
+      {/* Subtle noise texture */}
+      <div className="absolute inset-0 opacity-[0.015]" style={{
+        backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")',
       }} />
 
-      <div className="container-main relative z-10 text-center py-32 lg:py-0">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="max-w-3xl mx-auto"
-        >
-          <motion.p
-            variants={blurIn}
-            className="badge-gold mb-6 text-caption"
-          >
-            진로진학입시 교육컨설팅
-          </motion.p>
+      <div className="container-editorial relative z-10 pt-32 pb-20 lg:pt-0 lg:pb-0">
+        <div className="max-w-2xl">
+          <motion.div variants={stagger} initial="hidden" animate="visible">
+            {/* Overline */}
+            <motion.p variants={fadeUp} className="overline mb-8">
+              {hero.overline}
+            </motion.p>
 
-          <motion.h1
-            variants={blurIn}
-            className="text-display-m lg:text-display text-white font-heading mb-6 text-balance"
-          >
-            급변하는 입시,
-            <br />
-            <span className="text-gradient-gold">우리 아이의 방향</span>은
-            <br className="lg:hidden" /> 잡혀 있나요?
-          </motion.h1>
-
-          <motion.p
-            variants={fadeInUp}
-            className="text-body-lg text-white/70 mb-10 max-w-xl mx-auto"
-          >
-            정확히 진단하고, 방향을 잡고,
-            <br className="hidden sm:block" />
-            제대로 공부할 수 있는 환경을 만듭니다.
-          </motion.p>
-
-          <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href={siteConfig.applyCoaching}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary text-body-lg group"
+            {/* Headline */}
+            <motion.h1
+              variants={blurReveal}
+              className="text-display mb-8"
+              style={{ whiteSpace: 'pre-line' }}
             >
-              우리 아이 무료 진단 받기
-              <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a href="#programs" className="btn-secondary text-body-lg">
-              프로그램 보기
-            </a>
-          </motion.div>
+              {hero.headline}
+            </motion.h1>
 
-          <motion.div
-            variants={fadeInUp}
-            className="mt-14 pt-8 border-t border-white/10"
-          >
-            <p className="text-white/50 text-body-sm mb-3">
-              올해{' '}
-              <span ref={counterRef} className="text-gold font-accent font-bold text-h3">
-                0+
-              </span>
-              명의 학부모가 마인드프로필을 선택했습니다
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              {['과학고', '외고', '상산고', '서연고', 'KAIST', '의약학'].map((tag) => (
-                <span
-                  key={tag}
-                  className="text-caption text-white/40 border border-white/10 rounded-sm px-3 py-1"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
+            {/* Body */}
+            <motion.p
+              variants={fadeUp}
+              className="text-[18px] leading-[1.75] mb-10 max-w-lg"
+              style={{ color: 'var(--text-secondary)', whiteSpace: 'pre-line' }}
+            >
+              {hero.body}
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 mb-12">
+              <a href={siteConfig.applyCoaching} target="_blank" rel="noopener noreferrer" className="btn-gold group">
+                {hero.ctaPrimary}
+                <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+              </a>
+              <a href="#framework" className="btn-ghost">
+                {hero.ctaSecondary}
+              </a>
+            </motion.div>
+
+            {/* Trust line */}
+            <motion.div variants={fadeUp}>
+              <div className="gold-divider mb-6" />
+              <p className="text-[14px] leading-relaxed max-w-md" style={{ color: 'var(--text-tertiary)' }}>
+                {hero.trustLine}
+              </p>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-navy to-transparent" />
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <span className="text-[10px] font-accent uppercase tracking-[0.15em]" style={{ color: 'var(--text-muted)' }}>
+          Scroll
+        </span>
+        <ChevronDown size={16} style={{ color: 'var(--text-muted)' }} />
+      </motion.div>
     </section>
   );
 }

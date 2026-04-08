@@ -2,188 +2,268 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════
+   DESIGN TOKENS — Dark Editorial + Warm Prestige
+   ═══════════════════════════════════════ */
+
 :root {
-  /* Primary */
-  --color-navy: #1B2838;
-  --color-navy-light: #243447;
-  --color-navy-dark: #111C27;
+  /* Background Surfaces */
+  --bg-primary: #0E0D0B;
+  --bg-secondary: #171512;
+  --bg-surface: #1F1B17;
+  --bg-elevated: #2A2520;
+
+  /* Text */
+  --text-primary: #F5EFE6;
+  --text-secondary: #C9BFAF;
+  --text-tertiary: #8A8070;
+  --text-muted: #5C544A;
 
   /* Accent */
-  --color-gold: #C9A96E;
-  --color-gold-light: #D4BC8E;
-  --color-gold-dark: #B08D4F;
-
-  /* Neutral */
-  --color-ivory: #F5F0E8;
-  --color-gray-100: #F7F7F7;
-  --color-gray-200: #E5E5E5;
-  --color-gray-400: #9CA3AF;
-  --color-gray-600: #6B7280;
-  --color-gray-800: #1F2937;
+  --accent-gold: #B8945A;
+  --accent-gold-light: #D8C3A0;
+  --accent-gold-dim: #8B7345;
 
   /* Semantic */
-  --color-trust: #3A6EA5;
-  --color-danger: #C73E3E;
-  --color-danger-light: #FEF2F2;
-  --color-success: #16A34A;
+  --color-danger: #B54444;
+  --color-success: #4A8B5C;
+
+  /* Border */
+  --border-soft: rgba(216,195,160,0.10);
+  --border-medium: rgba(216,195,160,0.18);
+  --border-strong: rgba(216,195,160,0.30);
 
   /* Gradients */
-  --gradient-hero: linear-gradient(180deg, #111C27 0%, #1B2838 40%, #243447 100%);
-  --gradient-gold: linear-gradient(135deg, #C9A96E 0%, #D4BC8E 50%, #C9A96E 100%);
-  --gradient-section: linear-gradient(180deg, #F5F0E8 0%, #FFFFFF 100%);
-  --gradient-overlay: linear-gradient(180deg, rgba(17,28,39,0.9) 0%, rgba(17,28,39,0.6) 100%);
+  --gradient-hero: linear-gradient(180deg, #0E0D0B 0%, #171512 50%, #1F1B17 100%);
+  --gradient-chapter: linear-gradient(180deg, #171512 0%, #0E0D0B 100%);
+  --gradient-gold-line: linear-gradient(90deg, transparent 0%, #B8945A 50%, transparent 100%);
 
   /* Typography */
-  --font-heading: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-display: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
   --font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-accent: 'Inter', sans-serif;
 
-  /* Spacing */
-  --section-py: 96px;
-  --section-py-mobile: 64px;
-  --container-max: 1200px;
+  /* Container */
+  --container-max: 1080px;
+  --container-wide: 1200px;
   --container-px: 24px;
 }
 
+/* ═══════════════════════════════════════
+   BASE STYLES
+   ═══════════════════════════════════════ */
+
 @layer base {
-  * {
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
 
   html {
-    scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   body {
     font-family: var(--font-body);
-    color: var(--color-gray-800);
-    background-color: #FFFFFF;
-    line-height: 1.7;
-    letter-spacing: -0.01em;
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    line-height: 1.75;
     overflow-x: hidden;
   }
 
   ::selection {
-    background-color: rgba(201, 169, 110, 0.3);
-    color: var(--color-navy-dark);
+    background-color: rgba(184, 148, 90, 0.25);
+    color: var(--text-primary);
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  h4, h5, h6 {
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    font-weight: 600;
   }
 }
 
+/* ═══════════════════════════════════════
+   COMPONENT CLASSES
+   ═══════════════════════════════════════ */
+
 @layer components {
-  .container-main {
-    @apply mx-auto w-full px-6 md:px-12;
+  /* Container */
+  .container-editorial {
+    @apply mx-auto w-full;
     max-width: var(--container-max);
+    padding-left: var(--container-px);
+    padding-right: var(--container-px);
   }
 
-  .section-dark {
-    @apply bg-navy text-white;
-    padding-top: var(--section-py-mobile);
-    padding-bottom: var(--section-py-mobile);
+  .container-wide {
+    @apply mx-auto w-full;
+    max-width: var(--container-wide);
+    padding-left: var(--container-px);
+    padding-right: var(--container-px);
   }
 
-  .section-light {
-    @apply bg-white text-gray-800;
-    padding-top: var(--section-py-mobile);
-    padding-bottom: var(--section-py-mobile);
+  /* Sections */
+  .section-primary {
+    background-color: var(--bg-primary);
+    padding: 96px 0;
   }
 
-  .section-ivory {
-    @apply bg-ivory text-gray-800;
-    padding-top: var(--section-py-mobile);
-    padding-bottom: var(--section-py-mobile);
+  .section-secondary {
+    background-color: var(--bg-secondary);
+    padding: 96px 0;
   }
 
-  @media (min-width: 1024px) {
-    .section-dark,
-    .section-light,
-    .section-ivory {
-      padding-top: var(--section-py);
-      padding-bottom: var(--section-py);
+  @media (max-width: 1023px) {
+    .section-primary,
+    .section-secondary {
+      padding: 64px 0;
     }
   }
 
-  .btn-primary {
-    @apply inline-flex items-center justify-center rounded-xl px-8 py-4 font-semibold transition-all duration-300;
-    background: var(--color-gold);
-    color: var(--color-navy);
-    box-shadow: 0 4px 16px rgba(201,169,110,0.3);
+  /* Chapter Label */
+  .chapter-label {
+    font-family: var(--font-accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-gold-dim);
+    margin-bottom: 24px;
   }
 
-  .btn-primary:hover {
-    background: var(--color-gold-light);
-    box-shadow: 0 8px 32px rgba(201,169,110,0.4);
-    transform: translateY(-2px);
+  /* Overline */
+  .overline {
+    font-family: var(--font-accent);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
   }
 
-  .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-xl px-8 py-4 font-semibold transition-all duration-300;
+  /* Display Typography */
+  .text-display {
+    font-family: var(--font-display);
+    font-size: 64px;
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+
+  .text-h1 {
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
+  }
+
+  .text-h2 {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+  }
+
+  @media (max-width: 767px) {
+    .text-display { font-size: 36px; }
+    .text-h1 { font-size: 30px; }
+    .text-h2 { font-size: 26px; }
+  }
+
+  /* Gold Divider */
+  .gold-divider {
+    width: 48px;
+    height: 1px;
+    background: var(--accent-gold);
+    opacity: 0.4;
+  }
+
+  .gold-line-full {
+    width: 100%;
+    height: 1px;
+    background: var(--gradient-gold-line);
+    opacity: 0.3;
+  }
+
+  /* Buttons */
+  .btn-gold {
+    @apply inline-flex items-center justify-center font-semibold transition-all;
+    font-family: var(--font-body);
+    font-size: 15px;
+    background: var(--accent-gold);
+    color: var(--bg-primary);
+    padding: 14px 32px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(184,148,90,0.25);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-gold:hover {
+    background: var(--accent-gold-light);
+    box-shadow: 0 8px 36px rgba(184,148,90,0.35);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center font-semibold transition-all;
+    font-family: var(--font-body);
+    font-size: 15px;
     background: transparent;
-    color: var(--color-gold);
-    border: 1px solid var(--color-gold);
+    color: var(--text-primary);
+    padding: 14px 32px;
+    border-radius: 20px;
+    border: 1px solid var(--border-medium);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .btn-secondary:hover {
-    background: var(--color-gold);
-    color: var(--color-navy);
+  .btn-ghost:hover {
+    border-color: var(--border-strong);
+    background: rgba(216,195,160,0.04);
   }
 
-  .card-dark {
-    @apply rounded-md transition-all duration-300;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
+  /* Cards */
+  .card-surface {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    padding: 32px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .card-dark:hover {
-    background: rgba(255,255,255,0.08);
+  .card-surface:hover {
+    border-color: var(--border-medium);
+    background: var(--bg-elevated);
     transform: translateY(-2px);
   }
 
-  .card-light {
-    @apply rounded-md bg-white transition-all duration-300;
-    border: 1px solid var(--color-gray-200);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-  }
-
-  .card-light:hover {
-    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-    transform: translateY(-2px);
-  }
-
-  .badge-gold {
-    @apply inline-flex items-center rounded-sm px-3 py-1 text-caption font-semibold;
-    background: rgba(201,169,110,0.12);
-    color: var(--color-gold);
-  }
-
-  .badge-danger {
-    @apply inline-flex items-center rounded-sm px-3 py-1 text-caption font-semibold animate-pulse-slow;
-    background: var(--color-danger-light);
-    color: var(--color-danger);
-  }
-
-  .text-gradient-gold {
-    background: var(--gradient-gold);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  /* Stat Number */
+  .stat-number {
+    font-family: var(--font-accent);
+    font-weight: 700;
+    color: var(--accent-gold);
   }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
-/* Pretendard Font */
-@font-face {
-  font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
-}
+/* ═══════════════════════════════════════
+   FONTS
+   ═══════════════════════════════════════ */
 
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700;800&display=swap');

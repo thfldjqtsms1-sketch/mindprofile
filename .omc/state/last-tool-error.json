@@ -1,7 +1,7 @@
 {
   "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"cd \\\"C:/test/clients/Mr.jin/output/mindprofile\\\" && gh repo create mindprofile --public --source=. --push 2>&1\",\"timeout\":60000,\"description\":\"Create GitHub repo and push\"}",
-  "error": "Exit code 1\nhttps://github.com/thfldjqtsms1-sketch/mindprofile\nremote: error: Trace: ee49f397945e65859dbaca75614ece1c7de343524b7c8abcf795db77522290fe        \nremote: error: See https://gh.io/lfs for more information.        \nremote: error: File node_modules/@next/swc-win32-x64-msvc/next-swc.win32-x64-msvc.node is 129.56 MB; this exceeds GitHub's file size limit of 100.00 MB        \nremote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com...",
-  "timestamp": "2026-04-08T08:25:17.333Z",
-  "retry_count": 1
+  "tool_input_preview": "{\"command\":\"cd \\\"C:/test/clients/Mr.jin/output/mindprofile\\\" && netlify deploy --prod --dir=out 2>&1\",\"timeout\":120000,\"description\":\"Deploy static out/ to existing Netlify site\"}",
+  "error": "Exit code 1\n\u001b[96m\u001b[1m​\u001b[22m\u001b[39m\n\u001b[96m\u001b[1mNetlify Build                                                 \u001b[22m\u001b[39m\n\u001b[96m\u001b[1m────────────────────────────────────────────────────────────────\u001b[22m\u001b[39m\n\u001b[36m\u001b[1m​\u001b[22m\u001b[39m\n\u001b[36m\u001b[1m❯ Version\u001b[22m\u001b[39m\n  @netlify/build 35.8.3\n\u001b[36m\u001b[1m​\u001b[22m\u001b[39m\n\u001b[36m\u001b[1m❯ Flags\u001b[22m\u001b[39m\n  accountId: 674274029fca2ffa9ff673d8\n  deployId: 69d61240b970b42afa84eb9f\n\u001b[36m\u001b[1m​\u001b[22m\u001b[39m\n\u001b[36m\u001b[1m❯ Current directory\u001b[22m\u001b[39m\n  C:\\test\\clients\\Mr.jin\\output\\mindprofile\n...",
+  "timestamp": "2026-04-08T08:30:55.317Z",
+  "retry_count": 2
 }

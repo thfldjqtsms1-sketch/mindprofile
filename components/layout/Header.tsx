@@ -6,82 +6,81 @@ import { Menu, X } from 'lucide-react';
 import { navItems, siteConfig } from '@/lib/data';
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 50);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-navy-dark/95 backdrop-blur-md shadow-lg'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? 'bg-bg-primary/95 backdrop-blur-md'
           : 'bg-transparent'
       }`}
+      style={{ borderBottom: scrolled ? '1px solid var(--border-soft)' : 'none' }}
     >
-      <div className="container-main flex items-center justify-between h-16 lg:h-20">
-        <a href="#" className="text-white font-heading font-bold text-h4">
+      <div className="container-editorial flex items-center justify-between h-16 lg:h-20">
+        <a href="#" className="font-display text-[22px] font-medium tracking-tight" style={{ color: 'var(--text-primary)' }}>
           {siteConfig.name}
         </a>
 
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-8" aria-label="메인 메뉴">
+        <nav className="hidden lg:flex items-center gap-10" aria-label="메인 메뉴">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-white/70 hover:text-gold text-body-sm font-medium transition-colors duration-200"
+              className="text-[14px] font-medium transition-colors duration-300"
+              style={{ color: 'var(--text-tertiary)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent-gold)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-tertiary)')}
             >
               {item.label}
             </a>
           ))}
-          <a href={siteConfig.applyCoaching} target="_blank" rel="noopener noreferrer" className="btn-primary text-body-sm !py-2.5 !px-6">
-            무료 상담 신청
+          <a href={siteConfig.applyCoaching} target="_blank" rel="noopener noreferrer" className="btn-gold text-[13px] !py-2.5 !px-6">
+            상담 신청
           </a>
         </nav>
 
-        {/* Mobile Toggle */}
         <button
-          className="lg:hidden text-white p-2"
-          onClick={() => setIsMobileOpen(!isMobileOpen)}
-          aria-label={isMobileOpen ? '메뉴 닫기' : '메뉴 열기'}
+          className="lg:hidden p-2"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label={mobileOpen ? '메뉴 닫기' : '메뉴 열기'}
+          style={{ color: 'var(--text-primary)' }}
         >
-          {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
+          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
-        {isMobileOpen && (
+        {mobileOpen && (
           <motion.nav
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-navy-dark/98 backdrop-blur-md border-t border-white/5"
+            className="lg:hidden"
+            style={{ background: 'var(--bg-primary)', borderTop: '1px solid var(--border-soft)' }}
             aria-label="모바일 메뉴"
           >
-            <div className="container-main py-6 flex flex-col gap-4">
+            <div className="container-editorial py-6 flex flex-col gap-4">
               {navItems.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="text-white/80 hover:text-gold text-body font-medium py-2 transition-colors"
-                  onClick={() => setIsMobileOpen(false)}
+                  className="text-[15px] font-medium py-2 transition-colors"
+                  style={{ color: 'var(--text-secondary)' }}
+                  onClick={() => setMobileOpen(false)}
                 >
                   {item.label}
                 </a>
               ))}
-              <a
-                href={siteConfig.applyCoaching}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary text-center mt-2"
-              >
-                무료 상담 신청
+              <a href={siteConfig.applyCoaching} target="_blank" rel="noopener noreferrer" className="btn-gold text-center mt-2">
+                상담 신청
               </a>
             </div>
           </motion.nav>
