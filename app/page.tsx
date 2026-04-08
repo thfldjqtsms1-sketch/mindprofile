@@ -183,6 +183,16 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* ═══ PANEL: Article Quote ═══ */}
+          <div className="flex-shrink-0 h-screen flex items-center sec-white" style={{ width: '90vw', padding: '0 80px' }}>
+            <div style={{ maxWidth: 600 }}>
+              <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(20px, 2.5vw, 28px)', fontWeight: 300, fontStyle: 'italic', lineHeight: 1.6, color: 'var(--c-text)', marginBottom: 24 }}>
+                {ch1.articleQuote}
+              </p>
+              <p className="t-label">{ch1.articleSource}</p>
+            </div>
+          </div>
+
           {/* ═══ PANEL: Comparison ═══ */}
           <div className="flex-shrink-0 h-screen flex items-center sec-cream" style={{ width: '90vw', padding: '0 80px' }}>
             <div className="grid grid-cols-2 gap-0 w-full" style={{ maxWidth: 800 }}>
@@ -208,6 +218,25 @@ export default function HomePage() {
               <h2 className="t-editorial" style={{ maxWidth: 700 }}>
                 {ch2.editorial}
               </h2>
+            </div>
+          </div>
+
+          {/* ═══ PANEL: Sixsense 4 Types ═══ */}
+          <div className="flex-shrink-0 h-screen flex items-center sec-cream" style={{ width: '100vw', padding: '0 80px' }}>
+            <div style={{ width: '100%', maxWidth: 1000 }}>
+              <p className="t-label" style={{ color: 'var(--c-accent)', marginBottom: 16 }}>{ch2.sixsense.title}</p>
+              <p className="t-body" style={{ color: 'var(--c-text-muted)', marginBottom: 48, maxWidth: 500 }}>{ch2.sixsense.desc}</p>
+              <div className="grid grid-cols-4 gap-0">
+                {ch2.sixsense.types.map((type, i) => (
+                  <div key={i} style={{ padding: '32px 24px', borderLeft: i > 0 ? '1px solid var(--c-border)' : 'none' }}>
+                    <span style={{ fontSize: 48, fontWeight: 200, lineHeight: 1, color: 'rgba(0,0,0,0.06)', display: 'block', marginBottom: 8, fontFamily: 'var(--font-sans)', letterSpacing: '-0.05em' }}>
+                      0{i + 1}
+                    </span>
+                    <p style={{ fontSize: 20, fontWeight: 600, letterSpacing: '-0.02em', marginBottom: 12, color: 'var(--c-text)' }}>{type.name}</p>
+                    <p className="t-body-sm" style={{ color: 'var(--c-text-muted)' }}>{type.desc}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -245,6 +274,41 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* ═══ PANEL: Pricing ═══ */}
+          <div className="flex-shrink-0 h-screen flex items-center sec-white" style={{ width: '90vw', padding: '0 80px' }}>
+            <div style={{ maxWidth: 700 }}>
+              <p className="t-label" style={{ color: 'var(--c-accent)', marginBottom: 24 }}>비용 안내</p>
+              <div style={{ marginBottom: 40 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px 0', borderBottom: '1px solid var(--c-border)' }}>
+                  <div>
+                    <p style={{ fontSize: 18, fontWeight: 500 }}>{ch2.pricing.coaching1.label}</p>
+                  </div>
+                  <p style={{ fontSize: 22, fontWeight: 500, letterSpacing: '-0.03em' }}>{ch2.pricing.coaching1.price}</p>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px 0', borderBottom: '1px solid var(--c-border)' }}>
+                  <div>
+                    <p style={{ fontSize: 18, fontWeight: 500 }}>{ch2.pricing.coaching12.label}</p>
+                    <p className="t-label" style={{ marginTop: 4 }}>{ch2.pricing.coaching12.note}</p>
+                  </div>
+                  <p style={{ fontSize: 22, fontWeight: 500, letterSpacing: '-0.03em' }}>{ch2.pricing.coaching12.price}</p>
+                </div>
+                {ch2.pricing.admissions.map((a, i) => (
+                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '16px 0', borderBottom: '1px solid var(--c-border)' }}>
+                    <p className="t-body-sm" style={{ color: 'var(--c-text-muted)' }}>입시 추가 — {a.school}</p>
+                    <p className="t-body-sm" style={{ fontWeight: 500 }}>{a.price}</p>
+                  </div>
+                ))}
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '16px 0', borderBottom: '1px solid var(--c-border)' }}>
+                  <p className="t-body-sm" style={{ color: 'var(--c-text-muted)' }}>{ch2.pricing.consultOnly.label} ({ch2.pricing.consultOnly.note})</p>
+                  <p className="t-body-sm" style={{ fontWeight: 500 }}>{ch2.pricing.consultOnly.price}</p>
+                </div>
+              </div>
+              <p className="t-label" style={{ marginBottom: 8 }}>학년별 정원: {ch2.pricing.capacity}</p>
+              <p className="t-label" style={{ marginBottom: 8 }}>운영 기간: {ch2.pricing.period}</p>
+              <p className="t-body-sm" style={{ color: 'var(--c-text-muted)' }}>{ch2.pricing.note}</p>
+            </div>
+          </div>
+
           {/* ═══ PANEL: Chapter 3 Title + Stats ═══ */}
           <div className="flex-shrink-0 w-screen h-screen flex items-center sec-white" style={{ padding: '0 80px' }}>
             <div style={{ width: '100%', maxWidth: 900 }}>
@@ -261,10 +325,36 @@ export default function HomePage() {
               </div>
               <div className="line-h" style={{ marginBottom: 24 }} />
               <div className="flex flex-wrap gap-2">
-                {ch3.schools.map((name) => (
+                {ch3.achievements.flatMap(a => a.schools).map((name) => (
                   <span key={name} style={{ fontSize: 13, padding: '5px 12px', borderRadius: 999, border: '1px solid var(--c-border)', color: 'var(--c-text-muted)' }}>{name}</span>
                 ))}
               </div>
+            </div>
+          </div>
+
+          {/* ═══ PANELS: Achievements detail ═══ */}
+          {ch3.achievements.map((ach, i) => (
+            <div key={i} className="flex-shrink-0 h-screen flex items-center sec-black" style={{ width: '60vw', padding: '0 80px', borderLeft: '1px solid rgba(255,255,255,0.06)' }}>
+              <div style={{ maxWidth: 450 }}>
+                <p className="t-label" style={{ color: 'rgba(255,255,255,0.3)', marginBottom: 16 }}>{ach.category}</p>
+                <div className="flex flex-wrap gap-2" style={{ marginBottom: 24 }}>
+                  {ach.schools.map((s) => (
+                    <span key={s} style={{ fontSize: 15, padding: '6px 16px', borderRadius: 999, border: '1px solid rgba(255,255,255,0.15)', color: '#fff' }}>{s}</span>
+                  ))}
+                </div>
+                <p className="t-body" style={{ color: 'rgba(255,255,255,0.5)' }}>{ach.desc}</p>
+              </div>
+            </div>
+          ))}
+
+          {/* ═══ PANEL: Book Review ═══ */}
+          <div className="flex-shrink-0 h-screen flex items-center sec-white" style={{ width: '80vw', padding: '0 80px' }}>
+            <div style={{ maxWidth: 550 }}>
+              <p className="t-label" style={{ marginBottom: 24, color: 'var(--c-accent)' }}>{ch3.bookReview.title}</p>
+              <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(18px, 2vw, 24px)', fontWeight: 300, fontStyle: 'italic', lineHeight: 1.6, marginBottom: 24 }}>
+                {ch3.bookReview.quote}
+              </p>
+              <p className="t-label">{ch3.bookReview.source}</p>
             </div>
           </div>
 

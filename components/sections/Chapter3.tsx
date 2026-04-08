@@ -47,7 +47,7 @@ export default function Chapter3() {
 
           {/* Schools */}
           <div style={{ marginTop: 40, display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-            {ch3.schools.map((name) => (
+            {ch3.achievements.flatMap(a => a.schools).map((name) => (
               <span key={name} style={{
                 fontSize: 13, padding: '6px 14px', borderRadius: 999,
                 border: '1px solid var(--c-border)', color: 'var(--c-text-muted)',
