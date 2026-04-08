@@ -7,14 +7,23 @@ import { ArrowRight, Plus, Minus, ExternalLink } from 'lucide-react';
 
 export default function HomePage() {
   const [entered, setEntered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  // GSAP horizontal scroll — entire site
+  // Detect mobile
   useEffect(() => {
-    if (!entered || typeof window === 'undefined') return;
+    const check = () => setIsMobile(window.innerWidth < 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  // GSAP horizontal scroll — desktop only
+  useEffect(() => {
+    if (!entered || typeof window === 'undefined' || isMobile) return;
 
     let ctx: ReturnType<typeof import('gsap')['gsap']['context']> | null = null;
 
@@ -50,7 +59,7 @@ export default function HomePage() {
       clearTimeout(timer);
       if (ctx) ctx.revert();
     };
-  }, [entered]);
+  }, [entered, isMobile]);
 
   // ── INTRO SCREEN (before GO) ──
   if (!entered) {
@@ -144,12 +153,12 @@ export default function HomePage() {
         </a>
       </nav>
 
-      {/* Horizontal scroll wrapper */}
-      <div ref={wrapperRef} className="overflow-hidden">
-        <div ref={trackRef} className="flex h-screen">
+      {/* Scroll wrapper — horizontal on desktop, vertical on mobile */}
+      <div ref={wrapperRef} className={isMobile ? '' : 'overflow-hidden'}>
+        <div ref={trackRef} className={isMobile ? 'flex flex-col' : 'flex h-screen'}>
 
           {/* ═══ PANEL: Chapter 1 Title ═══ */}
-          <div className="flex-shrink-0 w-screen h-screen flex items-center sec-black" style={{ padding: '0 80px' }}>
+          <div className="flex-shrink-0 w-screen lg:h-screen flex items-center sec-black" style={{ padding: isMobile ? '80px 24px' : '0 80px' }}>
             <div>
               <p className="t-chapter" style={{ color: 'rgba(255,255,255,0.3)', marginBottom: 24 }}>Chapter 1 — 방향의 시작</p>
               <h2 className="t-editorial-dark" style={{ maxWidth: 700 }}>
@@ -160,7 +169,7 @@ export default function HomePage() {
 
           {/* ═══ PANELS: Chapter 1 Pain blocks ═══ */}
           {ch1.blocks.map((block, i) => (
-            <div key={i} className="flex-shrink-0 h-screen flex items-center sec-black" style={{ width: '80vw', padding: '0 80px', borderLeft: '1px solid rgba(255,255,255,0.06)' }}>
+            <div key={i} className="flex-shrink-0 lg:h-screen flex items-center sec-black" style={{ width: isMobile ? '100%' : '80vw', padding: isMobile ? '60px 24px' : '0 80px', borderLeft: isMobile ? 'none' : '1px solid rgba(255,255,255,0.06)' }}>
               <div style={{ maxWidth: 500 }}>
                 <span style={{ fontSize: 100, fontWeight: 200, lineHeight: 1, color: 'rgba(255,255,255,0.04)', display: 'block', marginBottom: -16, fontFamily: 'var(--font-sans)', letterSpacing: '-0.07em' }}>
                   0{i + 1}
@@ -176,7 +185,7 @@ export default function HomePage() {
           ))}
 
           {/* ═══ PANEL: Mega statement ═══ */}
-          <div className="flex-shrink-0 w-screen h-screen flex items-center justify-center sec-white" style={{ padding: '0 40px' }}>
+          <div className="flex-shrink-0 w-screen lg:h-screen flex items-center justify-center sec-white" style={{ padding: isMobile ? '80px 24px' : '0 40px' }}>
             <div style={{ textAlign: 'center' }}>
               <p className="t-mega">성적이 아니라</p>
               <p className="t-mega">설계 부재입니다.</p>
@@ -184,7 +193,7 @@ export default function HomePage() {
           </div>
 
           {/* ═══ PANEL: Article Quote ═══ */}
-          <div className="flex-shrink-0 h-screen flex items-center sec-white" style={{ width: '90vw', padding: '0 80px' }}>
+          <div className="flex-shrink-0 lg:h-screen flex items-center sec-white" style={{ width: isMobile ? '100%' : '90vw', padding: isMobile ? '60px 24px' : '0 80px' }}>
             <div style={{ maxWidth: 600 }}>
               <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(20px, 2.5vw, 28px)', fontWeight: 300, fontStyle: 'italic', lineHeight: 1.6, color: 'var(--c-text)', marginBottom: 24 }}>
                 {ch1.articleQuote}
@@ -194,8 +203,8 @@ export default function HomePage() {
           </div>
 
           {/* ═══ PANEL: Comparison ═══ */}
-          <div className="flex-shrink-0 h-screen flex items-center sec-cream" style={{ width: '90vw', padding: '0 80px' }}>
-            <div className="grid grid-cols-2 gap-0 w-full" style={{ maxWidth: 800 }}>
+          <div className="flex-shrink-0 lg:h-screen flex items-center sec-cream" style={{ width: isMobile ? '100%' : '90vw', padding: isMobile ? '60px 24px' : '0 80px' }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-0 w-full" style={{ maxWidth: 800 }}>
               <div style={{ paddingRight: 48, borderRight: '1px solid var(--c-border)' }}>
                 <p className="t-label" style={{ marginBottom: 32 }}>{ch1.comparison.before.label}</p>
                 {ch1.comparison.before.items.map((item, i) => (
@@ -212,7 +221,7 @@ export default function HomePage() {
           </div>
 
           {/* ═══ PANEL: Chapter 2 Title ═══ */}
-          <div className="flex-shrink-0 w-screen h-screen flex items-center sec-white" style={{ padding: '0 80px' }}>
+          <div className="flex-shrink-0 w-screen lg:h-screen flex items-center sec-white" style={{ padding: isMobile ? '80px 24px' : '0 80px' }}>
             <div>
               <p className="t-chapter" style={{ marginBottom: 24 }}>Chapter 2 — 설계의 기술</p>
               <h2 className="t-editorial" style={{ maxWidth: 700 }}>
@@ -222,11 +231,11 @@ export default function HomePage() {
           </div>
 
           {/* ═══ PANEL: Sixsense 4 Types ═══ */}
-          <div className="flex-shrink-0 h-screen flex items-center sec-cream" style={{ width: '100vw', padding: '0 80px' }}>
+          <div className="flex-shrink-0 lg:h-screen flex items-center sec-cream" style={{ width: isMobile ? '100%' : '100vw', padding: isMobile ? '60px 24px' : '0 80px' }}>
             <div style={{ width: '100%', maxWidth: 1000 }}>
               <p className="t-label" style={{ color: 'var(--c-accent)', marginBottom: 16 }}>{ch2.sixsense.title}</p>
               <p className="t-body" style={{ color: 'var(--c-text-muted)', marginBottom: 48, maxWidth: 500 }}>{ch2.sixsense.desc}</p>
-              <div className="grid grid-cols-4 gap-0">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
                 {ch2.sixsense.types.map((type, i) => (
                   <div key={i} style={{ padding: '32px 24px', borderLeft: i > 0 ? '1px solid var(--c-border)' : 'none' }}>
                     <span style={{ fontSize: 48, fontWeight: 200, lineHeight: 1, color: 'rgba(0,0,0,0.06)', display: 'block', marginBottom: 8, fontFamily: 'var(--font-sans)', letterSpacing: '-0.05em' }}>
@@ -242,7 +251,7 @@ export default function HomePage() {
 
           {/* ═══ PANELS: Framework steps ═══ */}
           {ch2.framework.map((step) => (
-            <div key={step.num} className="flex-shrink-0 h-screen flex items-center sec-white" style={{ width: '80vw', padding: '0 80px', borderLeft: '1px solid var(--c-border)' }}>
+            <div key={step.num} className="flex-shrink-0 lg:h-screen flex items-center sec-white" style={{ width: isMobile ? '100%' : '80vw', padding: isMobile ? '60px 24px' : '0 80px', borderLeft: isMobile ? 'none' : '1px solid var(--c-border)' }}>
               <div style={{ maxWidth: 520 }}>
                 <span style={{ fontSize: 120, fontWeight: 200, lineHeight: 1, color: 'rgba(0,0,0,0.03)', display: 'block', marginBottom: -20, fontFamily: 'var(--font-sans)', letterSpacing: '-0.07em' }}>
                   {step.num}
@@ -257,7 +266,7 @@ export default function HomePage() {
           ))}
 
           {/* ═══ PANEL: Programs ═══ */}
-          <div className="flex-shrink-0 h-screen flex items-center sec-cream" style={{ width: '100vw', padding: '0 80px' }}>
+          <div className="flex-shrink-0 lg:h-screen flex items-center sec-cream" style={{ width: isMobile ? '100%' : '100vw', padding: isMobile ? '60px 24px' : '0 80px' }}>
             <div className="flex gap-0 h-[60vh]" style={{ width: '100%' }}>
               {ch2.programs.map((prog, i) => (
                 <div key={i} className="flex-1" style={{ padding: '40px 32px', borderLeft: i > 0 ? '1px solid var(--c-border)' : 'none' }}>
@@ -275,7 +284,7 @@ export default function HomePage() {
           </div>
 
           {/* ═══ PANEL: Pricing ═══ */}
-          <div className="flex-shrink-0 h-screen flex items-center sec-white" style={{ width: '90vw', padding: '0 80px' }}>
+          <div className="flex-shrink-0 lg:h-screen flex items-center sec-white" style={{ width: isMobile ? '100%' : '90vw', padding: isMobile ? '60px 24px' : '0 80px' }}>
             <div style={{ maxWidth: 700 }}>
               <p className="t-label" style={{ color: 'var(--c-accent)', marginBottom: 24 }}>비용 안내</p>
               <div style={{ marginBottom: 40 }}>
@@ -310,12 +319,12 @@ export default function HomePage() {
           </div>
 
           {/* ═══ PANEL: Chapter 3 Title + Stats ═══ */}
-          <div className="flex-shrink-0 w-screen h-screen flex items-center sec-white" style={{ padding: '0 80px' }}>
+          <div className="flex-shrink-0 w-screen lg:h-screen flex items-center sec-white" style={{ padding: isMobile ? '80px 24px' : '0 80px' }}>
             <div style={{ width: '100%', maxWidth: 900 }}>
               <p className="t-chapter" style={{ marginBottom: 24 }}>Chapter 3 — 결과의 증명</p>
               <h2 className="t-editorial" style={{ marginBottom: 60 }}>{ch3.editorial}</h2>
               <div className="line-h" />
-              <div className="grid grid-cols-4 gap-0">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
                 {ch3.stats.map((s) => (
                   <div key={s.label} style={{ textAlign: 'center', padding: '32px 16px' }}>
                     <div style={{ fontFamily: 'var(--font-sans)', fontSize: 48, fontWeight: 300, letterSpacing: '-0.05em', marginBottom: 8 }}>{s.value}</div>
@@ -334,7 +343,7 @@ export default function HomePage() {
 
           {/* ═══ PANELS: Achievements detail ═══ */}
           {ch3.achievements.map((ach, i) => (
-            <div key={i} className="flex-shrink-0 h-screen flex items-center sec-black" style={{ width: '60vw', padding: '0 80px', borderLeft: '1px solid rgba(255,255,255,0.06)' }}>
+            <div key={i} className="flex-shrink-0 lg:h-screen flex items-center sec-black" style={{ width: isMobile ? '100%' : '60vw', padding: isMobile ? '60px 24px' : '0 80px', borderLeft: isMobile ? 'none' : '1px solid rgba(255,255,255,0.06)' }}>
               <div style={{ maxWidth: 450 }}>
                 <p className="t-label" style={{ color: 'rgba(255,255,255,0.3)', marginBottom: 16 }}>{ach.category}</p>
                 <div className="flex flex-wrap gap-2" style={{ marginBottom: 24 }}>
@@ -348,7 +357,7 @@ export default function HomePage() {
           ))}
 
           {/* ═══ PANEL: Book Review ═══ */}
-          <div className="flex-shrink-0 h-screen flex items-center sec-white" style={{ width: '80vw', padding: '0 80px' }}>
+          <div className="flex-shrink-0 lg:h-screen flex items-center sec-white" style={{ width: isMobile ? '100%' : '80vw', padding: isMobile ? '60px 24px' : '0 80px' }}>
             <div style={{ maxWidth: 550 }}>
               <p className="t-label" style={{ marginBottom: 24, color: 'var(--c-accent)' }}>{ch3.bookReview.title}</p>
               <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(18px, 2vw, 24px)', fontWeight: 300, fontStyle: 'italic', lineHeight: 1.6, marginBottom: 24 }}>
@@ -358,9 +367,23 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* ═══ PANELS: Blog Reviews ═══ */}
+          {ch3.blogReviews.map((r, i) => (
+            <div key={`blog-${i}`} className="flex-shrink-0 lg:h-screen flex items-center sec-white" style={{ width: isMobile ? '100%' : '70vw', padding: isMobile ? '60px 24px' : '0 80px', borderLeft: isMobile ? 'none' : '1px solid var(--c-border)' }}>
+              <div style={{ maxWidth: 480 }}>
+                <p className="t-label" style={{ color: 'var(--c-accent)', marginBottom: 16 }}>도서 서평</p>
+                <p style={{ fontSize: 20, fontWeight: 500, letterSpacing: '-0.02em', marginBottom: 20 }}>{r.title}</p>
+                <p style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 300, fontStyle: 'italic', lineHeight: 1.7, color: 'var(--c-text-muted)', marginBottom: 24 }}>
+                  &ldquo;{r.quote}&rdquo;
+                </p>
+                <p className="t-label">{r.author}</p>
+              </div>
+            </div>
+          ))}
+
           {/* ═══ PANELS: Testimonials ═══ */}
           {ch3.testimonials.map((t, i) => (
-            <div key={i} className="flex-shrink-0 h-screen flex items-center sec-cream" style={{ width: '60vw', padding: '0 80px', borderLeft: '1px solid var(--c-border)' }}>
+            <div key={i} className="flex-shrink-0 lg:h-screen flex items-center sec-cream" style={{ width: isMobile ? '100%' : '60vw', padding: isMobile ? '60px 24px' : '0 80px', borderLeft: isMobile ? 'none' : '1px solid var(--c-border)' }}>
               <div style={{ maxWidth: 420 }}>
                 <p style={{ fontSize: 18, lineHeight: 1.7, marginBottom: 32, color: 'var(--c-text)' }}>
                   &ldquo;{t.quote}&rdquo;
@@ -372,19 +395,19 @@ export default function HomePage() {
           ))}
 
           {/* ═══ PANEL: Chapter 4 — Profile ═══ */}
-          <div className="flex-shrink-0 h-screen flex items-center sec-white" style={{ width: '120vw', padding: '0 80px' }}>
-            <div className="grid grid-cols-12 gap-12 w-full items-center">
-              <div className="col-span-4">
+          <div className="flex-shrink-0 lg:h-screen flex items-center sec-white" style={{ width: isMobile ? '100%' : '100vw', padding: isMobile ? '60px 24px' : '0 80px' }}>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 w-full items-center">
+              <div className="lg:col-span-4">
                 <img src="/profile.jpg" alt="진승호 대표" style={{ width: '100%', borderRadius: 4, marginBottom: 24 }} />
                 <p style={{ fontSize: 26, fontWeight: 500, letterSpacing: '-0.03em' }}>{ch4.profile.name}</p>
                 <p className="t-label" style={{ marginTop: 4 }}>{ch4.profile.role}</p>
               </div>
-              <div className="col-span-8">
+              <div className="lg:col-span-8">
                 <p className="t-chapter" style={{ marginBottom: 24 }}>Chapter 4 — 함께의 시작</p>
                 <blockquote style={{ fontFamily: 'var(--font-display)', fontSize: 26, fontWeight: 300, fontStyle: 'italic', lineHeight: 1.5, marginBottom: 48, paddingBottom: 48, borderBottom: '1px solid var(--c-border)' }}>
                   {ch4.profile.philosophy}
                 </blockquote>
-                <div className="grid grid-cols-2 gap-x-8 gap-y-2">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-2">
                   {ch4.profile.credentials.map((cred, i) => (
                     <div key={i} style={{ padding: '8px 0', borderBottom: '1px solid var(--c-border)', display: 'flex', gap: 8, alignItems: 'start' }}>
                       <span className="t-label" style={{ width: 20, flexShrink: 0, textAlign: 'right' }}>{String(i + 1).padStart(2, '0')}</span>
@@ -397,9 +420,9 @@ export default function HomePage() {
           </div>
 
           {/* ═══ PANEL: Book ═══ */}
-          <div className="flex-shrink-0 h-screen flex items-center sec-cream" style={{ width: '70vw', padding: '0 80px' }}>
-            <div className="flex gap-16 items-center">
-              <img src="/book-3d.jpg" alt="성향 기반 중학 진로 로드맵" style={{ height: 400, borderRadius: 4, boxShadow: '0 20px 60px rgba(0,0,0,0.15)' }} />
+          <div className="flex-shrink-0 lg:h-screen flex items-center sec-cream" style={{ width: isMobile ? '100%' : '70vw', padding: isMobile ? '60px 24px' : '0 80px' }}>
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center">
+              <img src="/book-3d.jpg" alt="성향 기반 중학 진로 로드맵" style={{ height: isMobile ? 250 : 400, borderRadius: 4, boxShadow: '0 20px 60px rgba(0,0,0,0.15)' }} />
               <div style={{ maxWidth: 400 }}>
                 <p style={{ fontSize: 24, fontWeight: 500, letterSpacing: '-0.03em', marginBottom: 16 }}>{ch4.profile.book.title}</p>
                 <p className="t-body" style={{ color: 'var(--c-text-muted)', marginBottom: 8 }}>진승호 저 · 초록비책공방 · 264쪽 · 19,000원</p>
@@ -413,7 +436,7 @@ export default function HomePage() {
           </div>
 
           {/* ═══ PANEL: FAQ ═══ */}
-          <div className="flex-shrink-0 h-screen flex items-center sec-white" style={{ width: '80vw', padding: '0 80px' }}>
+          <div className="flex-shrink-0 lg:h-screen flex items-center sec-white" style={{ width: isMobile ? '100%' : '80vw', padding: isMobile ? '60px 24px' : '0 80px' }}>
             <div style={{ width: '100%', maxWidth: 600 }}>
               <p style={{ fontSize: 22, fontWeight: 500, letterSpacing: '-0.03em', marginBottom: 40 }}>자주 묻는 질문</p>
               {ch4.faq.map((item, i) => (
@@ -435,7 +458,7 @@ export default function HomePage() {
           </div>
 
           {/* ═══ PANEL: Final CTA ═══ */}
-          <div className="flex-shrink-0 w-screen h-screen flex items-center sec-black" style={{ padding: '0 80px' }}>
+          <div className="flex-shrink-0 w-screen lg:h-screen flex items-center sec-black" style={{ padding: isMobile ? '80px 24px' : '0 80px' }}>
             <div style={{ maxWidth: 600 }}>
               <h2 className="t-editorial-dark" style={{ marginBottom: 32 }}>{ch4.cta.headline}</h2>
               <p className="t-body" style={{ color: 'rgba(255,255,255,0.55)', marginBottom: 48, maxWidth: 450 }}>{ch4.cta.body}</p>
