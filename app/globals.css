@@ -258,8 +258,18 @@
   }
 
   .btn-pill-dark {
-    border-color: var(--c-border-dark);
+    @apply inline-flex items-center justify-center font-medium;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    letter-spacing: -0.02em;
+    padding: 12px 28px;
+    border-radius: 999px;
+    border: 1px solid var(--c-border-dark);
+    background: transparent;
     color: var(--c-text-light);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .btn-pill-dark:hover {
@@ -282,6 +292,8 @@
     color: var(--c-white);
     border: none;
     cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 

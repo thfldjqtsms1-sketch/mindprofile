@@ -62,10 +62,10 @@ export default function HomePage() {
         <div className="container-buro flex-1 flex items-center">
           <div style={{ maxWidth: 800 }}>
             <motion.h1 className="t-display" initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} style={{ marginBottom: 32 }}>
-              {intro.headline}
+              왜 그 공부를<br />해야 하는가.
             </motion.h1>
             <motion.p className="t-editorial" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }} style={{ marginBottom: 40, maxWidth: 600 }}>
-              {intro.subline}
+              이 질문에 답할 수 있는<br />아이는 흔들리지 않습니다.
             </motion.p>
             <motion.p className="t-body" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} style={{ color: 'var(--c-text-muted)', maxWidth: 480 }}>
               {intro.body}
@@ -158,8 +158,7 @@ export default function HomePage() {
           <Panel bg="w">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center" style={{ maxWidth: 1000, width: '100%' }}>
               <div>
-                <p className="t-mega" style={{ marginBottom: 16 }}>성적이 아니라</p>
-                <p className="t-mega">설계 부재입니다.</p>
+                <p className="t-mega">성적이 아니라<br />설계 부재입니다.</p>
                 <p className="t-body" style={{ color: 'var(--c-text-muted)', marginTop: 24, maxWidth: 350 }}>
                   지금 방향을 세우지 않으면, 나중에 세울 수 있는 폭이 좁아집니다.
                 </p>
@@ -215,7 +214,7 @@ export default function HomePage() {
           {/* P7: Book + review (merged) */}
           <Panel bg="c">
             <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center" style={{ maxWidth: 900 }}>
-              <img src="/insta-1.jpg" alt="성향 기반 중학 진로 로드맵" style={{ width: isMobile ? '50%' : 240, borderRadius: 4, boxShadow: '0 16px 48px rgba(0,0,0,0.1)', flexShrink: 0 }} />
+              <img src="/book-3d.jpg" alt="성향 기반 중학 진로 로드맵" style={{ width: isMobile ? '50%' : 240, borderRadius: 4, boxShadow: '0 16px 48px rgba(0,0,0,0.1)', flexShrink: 0 }} />
               <div>
                 <p style={{ fontSize: isMobile ? 20 : 26, fontWeight: 500, letterSpacing: '-0.03em', marginBottom: 8 }}>{ch4.profile.book.title}</p>
                 <p className="t-body-sm" style={{ color: 'var(--c-text-muted)', marginBottom: 16 }}>{ch4.profile.book.publisher} · {ch4.profile.book.pages} · {ch4.profile.book.price}</p>
