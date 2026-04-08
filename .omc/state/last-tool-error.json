@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd \\\"C:/test/clients/Mr.jin/output/mindprofile\\\" && gh repo create mindprofile --public --source=. --push 2>&1\",\"timeout\":60000,\"description\":\"Create GitHub repo and push\"}",
+  "error": "Exit code 1\nhttps://github.com/thfldjqtsms1-sketch/mindprofile\nremote: error: Trace: ee49f397945e65859dbaca75614ece1c7de343524b7c8abcf795db77522290fe        \nremote: error: See https://gh.io/lfs for more information.        \nremote: error: File node_modules/@next/swc-win32-x64-msvc/next-swc.win32-x64-msvc.node is 129.56 MB; this exceeds GitHub's file size limit of 100.00 MB        \nremote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com...",
+  "timestamp": "2026-04-08T08:25:17.333Z",
+  "retry_count": 1
+}

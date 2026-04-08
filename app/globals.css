@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Primary */
+  --color-navy: #1B2838;
+  --color-navy-light: #243447;
+  --color-navy-dark: #111C27;
+
+  /* Accent */
+  --color-gold: #C9A96E;
+  --color-gold-light: #D4BC8E;
+  --color-gold-dark: #B08D4F;
+
+  /* Neutral */
+  --color-ivory: #F5F0E8;
+  --color-gray-100: #F7F7F7;
+  --color-gray-200: #E5E5E5;
+  --color-gray-400: #9CA3AF;
+  --color-gray-600: #6B7280;
+  --color-gray-800: #1F2937;
+
+  /* Semantic */
+  --color-trust: #3A6EA5;
+  --color-danger: #C73E3E;
+  --color-danger-light: #FEF2F2;
+  --color-success: #16A34A;
+
+  /* Gradients */
+  --gradient-hero: linear-gradient(180deg, #111C27 0%, #1B2838 40%, #243447 100%);
+  --gradient-gold: linear-gradient(135deg, #C9A96E 0%, #D4BC8E 50%, #C9A96E 100%);
+  --gradient-section: linear-gradient(180deg, #F5F0E8 0%, #FFFFFF 100%);
+  --gradient-overlay: linear-gradient(180deg, rgba(17,28,39,0.9) 0%, rgba(17,28,39,0.6) 100%);
+
+  /* Typography */
+  --font-heading: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-accent: 'Inter', sans-serif;
+
+  /* Spacing */
+  --section-py: 96px;
+  --section-py-mobile: 64px;
+  --container-max: 1200px;
+  --container-px: 24px;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-gray-800);
+    background-color: #FFFFFF;
+    line-height: 1.7;
+    letter-spacing: -0.01em;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: rgba(201, 169, 110, 0.3);
+    color: var(--color-navy-dark);
+  }
+}
+
+@layer components {
+  .container-main {
+    @apply mx-auto w-full px-6 md:px-12;
+    max-width: var(--container-max);
+  }
+
+  .section-dark {
+    @apply bg-navy text-white;
+    padding-top: var(--section-py-mobile);
+    padding-bottom: var(--section-py-mobile);
+  }
+
+  .section-light {
+    @apply bg-white text-gray-800;
+    padding-top: var(--section-py-mobile);
+    padding-bottom: var(--section-py-mobile);
+  }
+
+  .section-ivory {
+    @apply bg-ivory text-gray-800;
+    padding-top: var(--section-py-mobile);
+    padding-bottom: var(--section-py-mobile);
+  }
+
+  @media (min-width: 1024px) {
+    .section-dark,
+    .section-light,
+    .section-ivory {
+      padding-top: var(--section-py);
+      padding-bottom: var(--section-py);
+    }
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl px-8 py-4 font-semibold transition-all duration-300;
+    background: var(--color-gold);
+    color: var(--color-navy);
+    box-shadow: 0 4px 16px rgba(201,169,110,0.3);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-gold-light);
+    box-shadow: 0 8px 32px rgba(201,169,110,0.4);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-xl px-8 py-4 font-semibold transition-all duration-300;
+    background: transparent;
+    color: var(--color-gold);
+    border: 1px solid var(--color-gold);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-gold);
+    color: var(--color-navy);
+  }
+
+  .card-dark {
+    @apply rounded-md transition-all duration-300;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .card-dark:hover {
+    background: rgba(255,255,255,0.08);
+    transform: translateY(-2px);
+  }
+
+  .card-light {
+    @apply rounded-md bg-white transition-all duration-300;
+    border: 1px solid var(--color-gray-200);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  .card-light:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    transform: translateY(-2px);
+  }
+
+  .badge-gold {
+    @apply inline-flex items-center rounded-sm px-3 py-1 text-caption font-semibold;
+    background: rgba(201,169,110,0.12);
+    color: var(--color-gold);
+  }
+
+  .badge-danger {
+    @apply inline-flex items-center rounded-sm px-3 py-1 text-caption font-semibold animate-pulse-slow;
+    background: var(--color-danger-light);
+    color: var(--color-danger);
+  }
+
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Pretendard Font */
+@font-face {
+  font-family: 'Pretendard';
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+}
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
