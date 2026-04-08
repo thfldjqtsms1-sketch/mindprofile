@@ -12,19 +12,26 @@ export default function LenisProvider({ children }: LenisProviderProps) {
 
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.1,
-      duration: 1.2,
+      lerp: 0.08,
+      duration: 1.4,
       smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
     });
 
     lenisRef.current = lenis;
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
+    // Sync Lenis with GSAP ScrollTrigger
+    import('gsap').then(({ gsap }) => {
+      import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+        gsap.registerPlugin(ScrollTrigger);
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+          lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+      });
+    });
 
     return () => {
       lenis.destroy();

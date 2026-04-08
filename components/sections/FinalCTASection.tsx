@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import { finalCTA, siteConfig } from '@/lib/data';
 import { blurReveal, fadeUp, stagger } from '@/lib/animations';
+import { Nl2br } from '@/lib/utils';
 
 export default function FinalCTASection() {
   return (
@@ -19,12 +20,12 @@ export default function FinalCTASection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left: Copy */}
             <div>
-              <motion.h2 variants={blurReveal} className="text-h1 mb-8" style={{ whiteSpace: 'pre-line' }}>
-                {finalCTA.title}
+              <motion.h2 variants={blurReveal} className="text-h1 mb-8">
+                <Nl2br text={finalCTA.title} />
               </motion.h2>
 
-              <motion.p variants={fadeUp} className="text-[17px] leading-[1.8] mb-10" style={{ color: 'var(--text-secondary)', whiteSpace: 'pre-line' }}>
-                {finalCTA.body}
+              <motion.p variants={fadeUp} className="text-[17px] leading-[1.8] mb-10" style={{ color: 'var(--text-secondary)' }}>
+                <Nl2br text={finalCTA.body} />
               </motion.p>
 
               <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 mb-8">

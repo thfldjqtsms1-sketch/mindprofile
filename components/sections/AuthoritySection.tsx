@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ExternalLink, BookOpen } from 'lucide-react';
 import { authority, siteConfig, bookReviews } from '@/lib/data';
 import { fadeUp, slideInLeft, slideInRight, stagger, staggerSlow } from '@/lib/animations';
+import { Nl2br } from '@/lib/utils';
 
 export default function AuthoritySection() {
   return (
@@ -12,8 +13,8 @@ export default function AuthoritySection() {
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-100px' }}>
           <motion.div variants={fadeUp} className="mb-16">
             <p className="chapter-label">Chapter 04</p>
-            <h2 className="text-h1" style={{ whiteSpace: 'pre-line' }}>
-              {authority.title}
+            <h2 className="text-h1">
+              <Nl2br text={authority.title} />
             </h2>
           </motion.div>
 
@@ -40,8 +41,8 @@ export default function AuthoritySection() {
             <motion.div variants={staggerSlow} initial="hidden" whileInView="visible" viewport={{ once: true }} className="lg:col-span-8 space-y-8">
               {/* Philosophy quote */}
               <motion.div variants={fadeUp} className="pb-8" style={{ borderBottom: '1px solid var(--border-soft)' }}>
-                <blockquote className="font-display text-[22px] lg:text-[26px] font-medium italic leading-[1.5]" style={{ color: 'var(--text-primary)', whiteSpace: 'pre-line' }}>
-                  {authority.philosophy}
+                <blockquote className="font-display text-[22px] lg:text-[26px] font-medium italic leading-[1.5]" style={{ color: 'var(--text-primary)' }}>
+                  <Nl2br text={authority.philosophy} />
                 </blockquote>
               </motion.div>
 

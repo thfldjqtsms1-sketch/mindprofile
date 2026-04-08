@@ -37,8 +37,8 @@ export default function ProofSection() {
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-100px' }}>
           <motion.div variants={fadeUp} className="mb-16">
             <p className="chapter-label">Chapter 03</p>
-            <h2 className="text-h1" style={{ whiteSpace: 'pre-line' }}>
-              {proof.title}
+            <h2 className="text-h1">
+              방향이 바뀌면,<br />결과도 달라집니다.
             </h2>
           </motion.div>
 

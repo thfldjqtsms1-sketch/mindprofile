@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { problems } from '@/lib/data';
 import { fadeUp, slideInLeft, stagger } from '@/lib/animations';
+import { Nl2br } from '@/lib/utils';
 
 export default function ProblemSection() {
   return (
@@ -11,8 +12,8 @@ export default function ProblemSection() {
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-100px' }}>
           <motion.div variants={fadeUp} className="max-w-2xl mb-16">
             <p className="chapter-label">Chapter 01</p>
-            <h2 className="text-h1 mb-6" style={{ whiteSpace: 'pre-line' }}>
-              {problems.title}
+            <h2 className="text-h1 mb-6">
+              <Nl2br text={problems.title} />
             </h2>
             <p className="text-[18px]" style={{ color: 'var(--text-secondary)' }}>
               {problems.subtitle}

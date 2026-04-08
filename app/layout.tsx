@@ -6,6 +6,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import FloatingCTA from '@/components/layout/FloatingCTA';
 import LenisProvider from '@/components/providers/LenisProvider';
+import CustomCursor from '@/components/effects/CustomCursor';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <main>{children}</main>
           <Footer />
           <FloatingCTA />
+          <CustomCursor />
         </LenisProvider>
       </body>
     </html>

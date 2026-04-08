@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { programFlow, siteConfig } from '@/lib/data';
 import { fadeUp, scaleIn, stagger } from '@/lib/animations';
+import { Nl2br } from '@/lib/utils';
 import { ArrowRight } from 'lucide-react';
 
 export default function ProgramFlowSection() {
@@ -11,8 +12,8 @@ export default function ProgramFlowSection() {
       <div className="container-editorial">
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-100px' }}>
           <motion.div variants={fadeUp} className="max-w-2xl mb-16">
-            <h2 className="text-h2" style={{ whiteSpace: 'pre-line' }}>
-              {programFlow.title}
+            <h2 className="text-h2">
+              <Nl2br text={programFlow.title} />
             </h2>
           </motion.div>
 
@@ -55,8 +56,8 @@ export default function ProgramFlowSection() {
 
           {/* Note + CTA */}
           <motion.div variants={fadeUp} className="mt-16 text-center">
-            <p className="text-[15px] mb-8 max-w-md mx-auto" style={{ color: 'var(--text-tertiary)', whiteSpace: 'pre-line' }}>
-              {programFlow.note}
+            <p className="text-[15px] mb-8 max-w-md mx-auto" style={{ color: 'var(--text-tertiary)' }}>
+              <Nl2br text={programFlow.note} />
             </p>
             <a href={siteConfig.applyCoaching} target="_blank" rel="noopener noreferrer" className="btn-gold group">
               1:1 진단 상담 신청

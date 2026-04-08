@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { insight } from '@/lib/data';
 import { fadeUp, slideInLeft, slideInRight, stagger } from '@/lib/animations';
+import { Nl2br } from '@/lib/utils';
 import { useGoldLineDraw } from '@/lib/gsap';
 
 export default function InsightSection() {
@@ -13,11 +14,11 @@ export default function InsightSection() {
       <div className="container-editorial">
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-100px' }}>
           <motion.div variants={fadeUp} className="max-w-2xl mb-16">
-            <h2 className="text-h1 mb-8" style={{ whiteSpace: 'pre-line' }}>
-              {insight.title}
+            <h2 className="text-h1 mb-8">
+              <Nl2br text={insight.title} />
             </h2>
-            <p className="text-[17px] leading-[1.8]" style={{ color: 'var(--text-secondary)', whiteSpace: 'pre-line' }}>
-              {insight.body}
+            <p className="text-[17px] leading-[1.8]" style={{ color: 'var(--text-secondary)' }}>
+              <Nl2br text={insight.body} />
             </p>
           </motion.div>
 
